@@ -6,12 +6,15 @@ import { IonicModule, ToastController } from "@ionic/angular";
 import { AuthService } from 'src/app/pages/perfil/auth.service';
 import { LoaderOverlayComponent } from 'src/app/shared/loader-overlay/loader-overlay.component';
 
+import { LottieComponent } from 'ngx-lottie';
+import { AnimationOptions } from 'ngx-lottie';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule, LoaderOverlayComponent],
+  imports: [CommonModule, IonicModule, ReactiveFormsModule, LoaderOverlayComponent, LottieComponent],
 })
 export class LoginPage {
 
@@ -25,6 +28,13 @@ export class LoginPage {
     username: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
+
+  lottieOptions: AnimationOptions = {
+    path: '/assets/logindragon.json',
+    autoplay: true,
+    loop: true
+  };
+
 
   async onSubmit() {
     if (this.form.invalid) {
@@ -41,6 +51,7 @@ export class LoginPage {
     this.authService.setUserData({ username, password });
     this.router.navigate(['/home']);
   }
+  
   iniciarCarga(){
     this.loader?.showfor(5000);
   }

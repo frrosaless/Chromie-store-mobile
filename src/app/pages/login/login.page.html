@@ -5,7 +5,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-title class="title-inicio">Iniciar Sesión en nuestra tienda</ion-title>
+  <ng-lottie [options]="lottieOptions" [style]="{display: 'block', width: '150px', height: '150px', margin: '0 auto 12px'}"></ng-lottie>
+  <ion-title class="title-inicio" style="text-align: center">Iniciar Sesión en nuestra tienda</ion-title>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <ion-item class="ion-margin-top">
       <ion-label position="floating">Usuario</ion-label>

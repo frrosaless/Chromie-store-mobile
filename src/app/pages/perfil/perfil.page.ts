@@ -14,6 +14,8 @@ import {
   IonCardTitle,
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/pages/perfil/auth.service';
+import { LottieComponent } from 'ngx-lottie';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-perfil',
@@ -21,7 +23,7 @@ import { AuthService } from 'src/app/pages/perfil/auth.service';
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, FormsModule, IonButtons, IonBackButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent
+    CommonModule, FormsModule, IonButtons, IonBackButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, LottieComponent
   ],
 })
 export class PerfilPage implements OnInit {
@@ -29,6 +31,12 @@ export class PerfilPage implements OnInit {
   private authService: AuthService = inject(AuthService);
   username: string = '';
   password: string = '';
+
+  lottieOptions: AnimationOptions = {
+    path: '/assets/profileani.json',
+    autoplay: true,
+    loop: true
+  };
 
   ngOnInit() {
     const userData = this.authService.getUserData();

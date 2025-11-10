@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   IonApp,
@@ -14,6 +14,8 @@ import {
   IonRouterOutlet,
   IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCardSubtitle
 } from '@ionic/angular/standalone';
+
+import { LoaderOverlayComponent } from 'src/app/shared/loader-overlay/loader-overlay.component';
 
 @Component({
   selector: 'app-home',
@@ -33,9 +35,15 @@ import {
     IonButtons,
     IonMenuButton,
     IonRouterOutlet,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCardSubtitle
+    IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCardSubtitle,
+    LoaderOverlayComponent
   ],
 })
 export class HomePage {
-  constructor() {}
+
+  @ViewChild('loader') loader?: LoaderOverlayComponent;
+
+  iniciarCarga(){
+    this.loader?.showfor(5000);
+  }
 }
