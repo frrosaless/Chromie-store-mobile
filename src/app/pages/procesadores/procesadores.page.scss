@@ -1,0 +1,30 @@
+.img-card{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.title-inicio{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.text-oferta{
+  --color: #f0bc13;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.text-referencia{
+  font-size: 16px;
+  text-decoration: line-through;
+}
+
+.btn-carrito {
+  --background: #1d9641; // Un color morado oscuro para el fondo
+  --color: #ffffff; // Cambia el color del texto a negro
+}

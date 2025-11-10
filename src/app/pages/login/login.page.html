@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chromie Store</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-title class="title-inicio">Iniciar Sesión en nuestra tienda</ion-title>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input formControlName="username" type="text" autocomplete="username"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
+      El usuario es Obligatorio (min 4 caracteres)
+    </ion-note>
+
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input formControlName="password" type="password" autocomplete="current-password"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+      La contraseña es Obligatoria (min 6 caracteres)
+    </ion-note>
+    <ion-button expand="block" type="submit" [disabled]="form.invalid" (click)="iniciarCarga()" class="ion-margin-top btn-iniciar-sesion">
+      Iniciar Sesión
+    </ion-button>
+  </form>
+</ion-content>
+
+<app-loader-overlay #loader [defaultDuration]="5000"></app-loader-overlay>

@@ -1,0 +1,17 @@
+.btn-iniciar-sesion {
+    --background: #a88204; // Un color morado oscuro para el fondo
+    --background-hover: #c7a534; // Color al pasar el mouse
+    --background-activated: #dfba40; // Color al hacer clic
+    --background-focused: #e4c768;
+
+    --color: white; // Color del texto
+
+    --border-radius: 10px; // Bordes más redondeados
+    --border-color: #a88204;
+    --border-style: solid;
+    --border-width: 1px;
+
+    --ripple-color: #dfba40;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+}
