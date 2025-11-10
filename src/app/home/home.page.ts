@@ -1,17 +1,8 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  IonApp,
-  IonMenu,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonFooter,
-  IonButtons,
-  IonMenuButton,
-  IonRouterOutlet,
+  IonApp, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFooter,
+  IonButtons, IonMenuButton, IonRouterOutlet,
   IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCardSubtitle
 } from '@ionic/angular/standalone';
 
