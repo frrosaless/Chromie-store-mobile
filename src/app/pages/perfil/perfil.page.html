@@ -11,11 +11,36 @@
   <ng-lottie [options]="lottieOptions" [style]="{display: 'block', width: '150px', height: '150px', margin: '0 auto 12px'}"></ng-lottie>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Información del Usuario</ion-card-title>
+      <ion-card-title>{{ usuario?.name }} {{ usuario?.lastname }}</ion-card-title>
+      <ion-card-subtitle>@{{ usuario?.username }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Usuario:</strong> {{ username }}</p>
-      <p><strong>Contraseña:</strong> {{ password }}</p>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            <h2>Email</h2>
+            <p>{{ usuario?.email }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Dirección</h2>
+            <p>{{ usuario?.address }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Comuna</h2>
+            <p>{{ usuario?.comuna }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Región</h2>
+            <p>{{ usuario?.region }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>

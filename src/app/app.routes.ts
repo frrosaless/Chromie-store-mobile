@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    canActivate: [authGuard]
   },
   {
     path: '',
@@ -16,22 +18,31 @@ export const routes: Routes = [
   },
   {
     path: 'perfil',
-    loadComponent: () => import('./pages/perfil/perfil.page').then( m => m.PerfilPage)
+    loadComponent: () => import('./pages/perfil/perfil.page').then( m => m.PerfilPage),
+    canActivate: [authGuard]
   },
   {
     path: 'categorias',
-    loadComponent: () => import('./pages/categorias/categorias.page').then( m => m.CategoriasPage)
+    loadComponent: () => import('./pages/categorias/categorias.page').then( m => m.CategoriasPage),
+    canActivate: [authGuard]
   },
   {
     path: 'procesadores',
-    loadComponent: () => import('./pages/procesadores/procesadores.page').then( m => m.ProcesadoresPage)
+    loadComponent: () => import('./pages/procesadores/procesadores.page').then( m => m.ProcesadoresPage),
+    canActivate: [authGuard]
   },
   {
     path: 'carrito',
-    loadComponent: () => import('./pages/carrito/carrito.page').then( m => m.CarritoPage)
+    loadComponent: () => import('./pages/carrito/carrito.page').then( m => m.CarritoPage),
+    canActivate: [authGuard]
   },
   {
     path: 'placasmadre',
-    loadComponent: () => import('./pages/placasmadre/placasmadre.page').then( m => m.PlacasmadrePage)
+    loadComponent: () => import('./pages/placasmadre/placasmadre.page').then( m => m.PlacasmadrePage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'registro',
+    loadComponent: () => import('./pages/registro/registro.page').then( m => m.RegistroPage)
   },
 ];

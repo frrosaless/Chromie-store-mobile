@@ -23,22 +23,21 @@
         <ion-title>Chromie Store</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-      <ion-title class="title-inicio">Ofertas</ion-title>
-      <ion-card>
-        <ion-card-header>
-          <img alt="intel-i5" class="img-card" src="assets/images/inteli5.jpeg" />
-          <ion-card-title>Intel I5-12400F</ion-card-title>
-          <ion-card-subtitle class="text-oferta">Precio oferta: $169.990</ion-card-subtitle>
-          <ion-card-subtitle class="text-referencia">Precio referencia: $189.990</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Procesador Intel Core i5-12400F de 12ª generación con 6 núcleos y 12 hilos, frecuencia base de 2.5 GHz y turbo de hasta 4.4 GHz, caché de 18 MB, socket LGA 1700, sin gráficos integrados.
-        </ion-card-content>
-        <ion-footer class="ion-padding-bottom">
-          <ion-button expand="block" fill="solid" class="ion-margin btn-carrito" routerLink="/carrito">Añadir al carrito</ion-button>
-        </ion-footer>
-      </ion-card>
+    <ion-content>
+      <ion-list>
+        <ion-card *ngFor="let producto of productos">
+          <img [src]="producto.imagen_url" />
+          <ion-card-header>
+            <ion-card-title>{{ producto.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ producto.precio | currency:'CLP' }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="agregarProducto(producto.id)">
+              Agregar al Carrito
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
     </ion-content>
   </div>
 </ion-app>

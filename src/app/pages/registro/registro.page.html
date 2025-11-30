@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-title class="title-inicio" style="text-align: center">Registrate en nuestra tienda</ion-title>
+  <form (submit)="guardarRegistro($event)">
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input [(ngModel)]="username" name="username" required=""></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" required=""></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="email" required=""></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="name" name="name" required=""></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input [(ngModel)]="lastname" name="lastname" required=""></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Dirección</ion-label>
+      <ion-input [(ngModel)]="address" name="address" required=""></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Comuna</ion-label>
+      <ion-input [(ngModel)]="comuna" name="comuna" required=""></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Región</ion-label>
+      <ion-input [(ngModel)]="region" name="region" required=""></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top btn-iniciar-sesion">
+      Registrate
+    </ion-button>
+  </form>
+</ion-content>

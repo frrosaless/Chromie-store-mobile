@@ -12,10 +12,16 @@ import {
   IonTitle,
   IonToolbar,
   IonCardTitle,
+  IonCardSubtitle,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/pages/perfil/auth.service';
 import { LottieComponent } from 'ngx-lottie';
-import { AnimationOptions } from 'ngx-lottie';
+import { AnimationOptions } from 'ngx-lottie'; 
+import { SqliteService, Usuario } from 'src/app/services/sqlite-service';
 
 @Component({
   selector: 'app-perfil',
@@ -23,14 +29,16 @@ import { AnimationOptions } from 'ngx-lottie';
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, FormsModule, IonButtons, IonBackButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, LottieComponent
+    CommonModule, FormsModule, IonButtons, IonBackButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, LottieComponent, IonButton,
+    IonCardSubtitle, IonList, IonItem, IonLabel,
   ],
 })
 export class PerfilPage implements OnInit {
 
+  usuario: Usuario | null = null;
   private authService: AuthService = inject(AuthService);
-  username: string = '';
-  password: string = '';
+  private db: SqliteService = inject(SqliteService);
+
 
   lottieOptions: AnimationOptions = {
     path: '/assets/profileani.json',
@@ -38,11 +46,22 @@ export class PerfilPage implements OnInit {
     loop: true
   };
 
-  ngOnInit() {
+  async ngOnInit() {
     const userData = this.authService.getUserData();
     console.log('Datos recibidos en PerfilPage desde el servicio:', userData);
-    this.username = userData?.username ?? '';
-    this.password = userData?.password ?? '';
+    if (userData && userData.username) {
+      await this.cargarUsuario(userData.username);
+    }
   }
 
+  async cargarUsuario(username: string) {
+    const usuarios = await this.db.getUsuario(username);
+    if (usuarios.length > 0) {
+      this.usuario = usuarios[0];
+    } else {
+      console.error('No se encontró el usuario en la base de datos.');
+    }
+  }
+
+  
 }
