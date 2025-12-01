@@ -3,21 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Categorias</ion-title>
+    <ion-title>Categorías</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <img alt="intel-i5" class="img-card" src="assets/images/procesador-cat.webp" />
-      <ion-button class="text-title" expand="block" fill="clear" routerLink="/procesadores">Procesadores</ion-button>
-    </ion-card-header>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <img alt="intel-i5" class="img-card" src="assets/images/placamadre-cat.jpg" />
-      <ion-button class="text-title" expand="block" fill="clear" routerLink="/placasmadre">Placas Madre</ion-button>
-    </ion-card-header>
-  </ion-card>
+  <ion-list>
+    <!-- Usamos *ngFor para iterar sobre el array de categorías -->
+    <ion-item *ngFor="let categoria of categorias" [routerLink]="['/productos-por-categoria', categoria.id]" button detail>
+      <ion-label>{{ categoria.nombre }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

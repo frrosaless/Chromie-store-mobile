@@ -45,4 +45,13 @@ export const routes: Routes = [
     path: 'registro',
     loadComponent: () => import('./pages/registro/registro.page').then( m => m.RegistroPage)
   },
+  {
+    path: 'productos-por-categoria/:id', // El ':id' es un parámetro dinámico
+    loadComponent: () => import('./pages/categorias/productos-por-categoria.page').then( m => m.ProductosPorCategoriaPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'mapa-modal',
+    loadComponent: () => import('./pages/mapa-modal/mapa-modal.page').then( m => m.MapaModalPage)
+  },
 ];

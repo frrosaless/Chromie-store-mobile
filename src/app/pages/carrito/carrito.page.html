@@ -7,19 +7,48 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <img alt="intel-i5" class="img-card" src="assets/images/inteli5.jpeg" />
-      <ion-card-title>Intel I5-12400F</ion-card-title>
-      <ion-card-subtitle class="text-oferta">Precio oferta: $169.990</ion-card-subtitle>
-      <ion-card-subtitle class="text-referencia">Precio referencia: $189.990</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      Procesador Intel Core i5-12400F de 12ª generación con 6 núcleos y 12 hilos, frecuencia base de 2.5 GHz y turbo de hasta 4.4 GHz, caché de 18 MB, socket LGA 1700, sin gráficos integrados.
-    </ion-card-content>
-    <ion-footer class="ion-padding-bottom">
-      <ion-button expand="block" fill="solid" class="ion-margin btn-carrito">Eliminar</ion-button>
-    </ion-footer>
-  </ion-card>
+
+<ion-content>
+  <div *ngIf="items.length === 0; else cartItems" class="empty-cart">
+    <ion-card-title>Tu carrito está vacío</ion-card-title>
+  </div>
+
+  <ng-template #cartItems>
+    <ion-list>
+      <ion-item *ngFor="let item of items" lines="full" class="ion-align-items-center">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="item.producto.imagen_url || 'assets/placeholder.png'"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ item.producto.nombre }}</h2>
+          <p>{{ item.producto.precio * item.cantidad | currency:'CLP':'symbol':'1.0-0' }}</p>
+        </ion-label>
+        <div slot="end" class="ion-text-center">
+          <div class="quantity-controls" style="display: flex; align-items: center; justify-content: flex-end;">
+            <ion-button (click)="disminuirCantidad(item)" fill="clear" size="small">
+              <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-label class="quantity-display" style="padding: 0 8px;">{{ item.cantidad }}</ion-label>
+            <ion-button (click)="aumentarCantidad(item)" fill="clear" size="small">
+              <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+          <ion-button fill="clear" size="small" color="danger" (click)="eliminarItem(item)">
+            Eliminar
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ng-template>
 </ion-content>
+
+<ion-footer *ngIf="items.length > 0">
+  <ion-toolbar>
+    <ion-title>Total: {{ totalCarrito | currency:'CLP':'symbol':'1.0-0' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="success">
+        Pagar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

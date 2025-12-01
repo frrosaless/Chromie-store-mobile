@@ -9,38 +9,61 @@
 
 <ion-content class="ion-padding">
   <ng-lottie [options]="lottieOptions" [style]="{display: 'block', width: '150px', height: '150px', margin: '0 auto 12px'}"></ng-lottie>
-  <ion-card>
+  <ion-card *ngIf="usuario">
     <ion-card-header>
       <ion-card-title>{{ usuario?.name }} {{ usuario?.lastname }}</ion-card-title>
       <ion-card-subtitle>@{{ usuario?.username }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-list lines="none">
-        <ion-item>
-          <ion-label>
-            <h2>Email</h2>
-            <p>{{ usuario?.email }}</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>Dirección</h2>
-            <p>{{ usuario?.address }}</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>Comuna</h2>
-            <p>{{ usuario?.comuna }}</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>Región</h2>
-            <p>{{ usuario?.region }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
+      <!-- Vista de solo lectura -->
+      <div *ngIf="!isEditing">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label><h2>Email</h2><p>{{ usuario.email }}</p></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><h2>Dirección</h2><p>{{ usuario.address || 'No especificada' }}</p></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><h2>Comuna</h2><p>{{ usuario.comuna || 'No especificada' }}</p></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><h2>Región</h2><p>{{ usuario.region || 'No especificada' }}</p></ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="block" (click)="iniciarEdicion()" class="ion-margin-top btn-custom-primary">Editar Perfil</ion-button>
+      </div>
+
+      <!-- Vista de edición -->
+      <div *ngIf="isEditing && usuarioEditable" class="ion-padding-top">
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="usuarioEditable.email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Dirección</ion-label>
+            <ion-input type="text" [(ngModel)]="usuarioEditable.address"></ion-input>
+            <ion-button slot="end" fill="clear" (click)="abrirMapa()">
+              <ion-icon slot="icon-only" name="map-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Comuna</ion-label>
+            <ion-input type="text" [(ngModel)]="usuarioEditable.comuna"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Región</ion-label>
+            <ion-input type="text" [(ngModel)]="usuarioEditable.region"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col><ion-button expand="block" color="success" (click)="guardarCambios()">Guardar</ion-button></ion-col>
+            <ion-col><ion-button expand="block" color="light" (click)="cancelarEdicion()">Cancelar</ion-button></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

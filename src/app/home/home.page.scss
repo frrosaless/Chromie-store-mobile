@@ -76,3 +76,21 @@ ion-menu::part(container) {
   --background: #1d9641; // Un color morado oscuro para el fondo
   --color: #ffffff; // Cambia el color del texto a negro
 }
+
+.btn-custom-primary {
+    --background: #a88204;
+    --background-hover: #c7a534;
+    --background-activated: #dfba40;
+    --background-focused: #e4c768;
+
+    --color: white;
+
+    --border-radius: 10px;
+    --border-color: #a88204;
+    --border-style: solid;
+    --border-width: 1px;
+
+    --ripple-color: #dfba40;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+}

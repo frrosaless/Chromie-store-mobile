@@ -13,10 +13,11 @@ import {
   IonNote,
   IonButton, ToastController
 } from "@ionic/angular/standalone";
-import { AuthService } from 'src/app/pages/perfil/auth.service';
 import { LoaderOverlayComponent } from 'src/app/shared/loader-overlay/loader-overlay.component';
-import { SqliteService } from 'src/app/services/sqlite-service';
-
+import { ApiService } from 'src/app/services/apiservice';
+import { AuthService } from 'src/app/pages/perfil/auth.service'; //// Asumiendo que tienes un auth.service
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { LottieComponent } from 'ngx-lottie';
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -47,7 +48,7 @@ export class LoginPage {
   private router : Router = inject(Router);
   private toastCtrl : ToastController = inject(ToastController);
   private authService: AuthService = inject(AuthService);
-  private sqliteService: SqliteService = inject(SqliteService);
+  private apiService: ApiService = inject(ApiService);
 
   form: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(4)]],
@@ -61,39 +62,39 @@ export class LoginPage {
   };
 
 
-  async onSubmit() {
+  onSubmit() {
     this.loader?.showfor(0);
     if (this.form.invalid) {
       this.loader?.hide();
-      const toast = await this.toastCtrl.create({
-        message: 'Por favor, complete el formulario correctamente.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      this.mostrarToast('Por favor, complete el formulario correctamente.', 'danger');
       return;
     }
 
     const { username, password } = this.form.value;
-    const usuarioAutenticado = await this.sqliteService.autenticarUsuario(username, password);
-    this.loader?.hide();
 
-    if (usuarioAutenticado) {
-      this.authService.setUserData(usuarioAutenticado);
-      this.router.navigate(['/home']);
-    } else {
-      const toast = await this.toastCtrl.create({
-        message: 'Usuario o contraseña incorrectos.',
-        duration: 3000,
-        color: 'danger',
-      });
-      await toast.present();
-      this.form.controls['password'].reset();
-    }
+    this.apiService.login(username, password).pipe(
+      catchError(error => {
+        this.loader?.hide();
+        this.mostrarToast('Usuario o contraseña incorrectos.', 'danger');
+        this.form.controls['password'].reset();
+        return of(null); // Detiene la cadena de observables
+      })
+    ).subscribe(response => {
+      this.loader?.hide();
+      if (response && response.access_token) {
+        this.authService.handleLogin(response.access_token);
+        this.router.navigate(['/home']);
+      }
+    });
   }
   
   iniciarCarga(){
     this.loader?.showfor(5000);
+  }
+
+  async mostrarToast(message: string, color: 'success' | 'danger') {
+    const toast = await this.toastCtrl.create({ message, duration: 3000, color });
+    await toast.present();
   }
 
   irARegistro(){
@@ -101,3 +102,11 @@ export class LoginPage {
   }
 
 }
+
+
+/*
+Usuarios de prueba:
+estos tienen articulos en su carrito para probar persistencia
+  dawz 123456
+  Leox 123456
+*/
