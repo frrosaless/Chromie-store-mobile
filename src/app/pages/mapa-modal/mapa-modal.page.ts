@@ -7,14 +7,6 @@ import * as L from 'leaflet';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import "leaflet/dist/images/marker-icon-2x.png";
-import "leaflet/dist/images/marker-shadow.png";
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'assets/marker-icon-2x.png',
-  iconUrl: 'assets/marker-icon.png', 
-  shadowUrl: 'assets/marker-shadow.png'
-});
-
 @Component({
   selector: 'app-mapa-modal',
   templateUrl: './mapa-modal.page.html',
